@@ -1,9 +1,7 @@
-title: Daytrip API Reference
+title: Daytrip driver company API Reference
 
 language_tabs:
    - bash
-   - python
-   - javascript
 
 includes:
    - introduction
@@ -12,7 +10,6 @@ includes:
    - errors
    - debugging
    - trip-api
-   - faq
 
 search: true
 
