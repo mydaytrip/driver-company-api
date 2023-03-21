@@ -1,6 +1,6 @@
 # Trip API
 
-A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple orders in case of a shared ride.
+A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple passenger groups in case of a shared ride.
 
 ## Trips endpoint
 
@@ -50,23 +50,23 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
       "englishSpeakingDriver": true,
       "departureAt": "2023-07-05T18:00:00Z",
       "acceptationNote": "Fiat Tipo station vagon",
-      "orders": [
+      "passengerGroups": [
         {
           "id": "11e4f50f-37cb-4f01-9d0d-9b76787a0dca",
           "bookingReference": "11E4F5",
           "departureAt": "2023-07-05T18:00:00Z",
           "origin": {
             "name": "Prague",
-            "latitude": 50.0755,
-            "longitude": 14.4378,
           },
           "destination": {
             "name": "Vienna",
-            "latitude": 48.2082,
-            "longitude": 16.3738,
           },
-          "pickupAddress": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
-          "dropoffAddress": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria",
+          "pickup": {
+            "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
+          },
+          "dropoff": {
+            "address": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria",
+          },
           "passengersCount": 3,
           "leadPassengerName": "Jan Novák",
           "leadPassengerPhone": "+420111111111",
@@ -82,6 +82,69 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           },
           "customerNote": "We would like some non-sparkling water",
           "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.",
+          "cashPayment": true,
+        }
+      ]
+    },
+    {
+      "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
+      "type": "pool",
+      "vehicleType": "shuttle",
+      "englishSpeakingDriver": true,
+      "departureAt": "2023-07-05T18:00:00Z",      
+      "passengerGroups": [
+        {
+          "id": "a988a761-3d71-43cb-b290-9be150245a28",
+          "bookingReference": "A988A7",
+          "departureAt": "2023-07-05T18:00:00Z",
+          "origin": {
+            "name": "Positano",
+          },
+          "destination": {
+            "name": "Naples",
+          },
+          "pickup": {
+            "address": "Mandara Parking",
+          },
+          "dropoff": {
+            "address": "Naples Airport: Naples Airport",
+          },
+          "passengersCount": 1,
+          "leadPassengerName": "Jan Novák",
+          "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1,
+          },
+          "customerNote": "I would like some non-sparkling water",
+          "cashPayment": true,
+        },
+        {
+          "id": "3919ca49-7153-4c50-b395-56bc026d30be",
+          "bookingReference": "3919CA",
+          "departureAt": "2023-07-05T18:30:00Z",
+          "origin": {
+            "name": "Positano",
+          },
+          "destination": {
+            "name": "Naples",
+          },
+          "pickup": {
+            "address": "Villa Yiara, Viale Pasitea, Positano, SA, Italy",
+            "latitude": 40.628749,
+            "longitude": 14.4813395,
+          },
+          "dropoff": {
+            "address": "Naples city center (Napoli Centrale Train Station): Naples city center (Napoli Centrale Train Station",
+          },
+          "passengersCount": 1,
+          "leadPassengerName": "Jan Sokol",
+          "leadPassengerPhone": "+420333333333",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1,
+          },
+          "customerNote": "I would like some sparkling water",
           "cashPayment": true,
         }
       ]
@@ -135,35 +198,41 @@ vehicleType           | string                            | Type of vehicle for 
 vehicleId             | string                            | Optional. Id of the assigned vehicle, if assigned.
 vehicleModel          | string                            | Optional.  Information about assigned vehicle model, if assigned and we have the info.
 englishSpeakingDriver | boolean                           | Specifies if this trip requires an English-speaking driver.
-departureAt           | string                            | UTC timestamp of the departure date with time. For a trip covering multiple orders this will be the minimum from all orders.
+departureAt           | string                            | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
 acceptationNote       | string                            | Optional. Acceptation note for this trip.
-orders                | list of [Order](#order)           | List of orders that this trip covers. Will be one order for private trips and one or more for pool trips.
+passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.
 
-## Order
+## PassengerGroup
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-id                    | string                            | Unique id of this order.
-bookingReference      | string                            | Booking reference of this order.
+id                    | string                            | Unique id of this group.
+bookingReference      | string                            | Booking reference of this group.
 departureAt           | string                            | UTC timestamp of the departure date with time.
 origin                | [Location](#location)             | Information about the origin location.
 destination           | [Location](#location)             | Information about the destination location.
-pickupAddress         | string                            | The pickup address.
-dropoffAddress        | string                            | The dropoff address.
-passengersCount       | integer                           | Count of passengers for this order.
+pickup                | [MapPoint](#mappoint)             | The pickup address/coordinates.
+dropoff               | [MapPoint](#mappoint)             | The dropoff address/coordinates.
+passengersCount       | integer                           | Count of passengers in this group.
 leadPassengerName     | string                            | Name of the lead passenger.
 leadPassengerPhone    | string                            | Phone of the lead passenger, including country code.
-requestedChildSeats   | [ChildSeatsCounts](#childseats)   | Counts of requested child seats by type.
+requestedChildSeats   | [ChildSeatsCounts](#childseats)   | Optional. Counts of requested child seats by type.
 luggage               | [Luggage](#luggage)               | Counts of luggage per type.
-customerNote          | string                            | Customer's note. Includes flight/train number.
-driverNote            | string                            | Note for the driver.
-cashPayment           | boolean                           | Specifies if this order is paid in cash.
+customerNote          | string                            | Optional. Customer's note. Includes flight/train number.
+driverNote            | string                            | Optional. Note for the driver.
+cashPayment           | boolean                           | Specifies if this passenger group is paying in cash.
 
 ## Location
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
 name                  | string                            | Name of the location.
+
+## MapPoint
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+address               | string                            | The pickup/dropoff address.
 latitude              | number                            | Optional. Latitude in degrees, if provided.
 longitude             | number                            | Optional. Longitude in degrees, if provided.
 
@@ -171,14 +240,14 @@ longitude             | number                            | Optional. Longitude 
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-rearFacing            | integer                           | How many rear facing child seats were requested for this order.
-forwardFacing         | integer                           | How many forward facing child seats were requested for this order.
-boosterSeat           | integer                           | How many booster seats were requested for this order.
-booster               | integer                           | How many boosters were requested for this order.
+rearFacing            | integer                           | How many rear facing child seats were requested by this group.
+forwardFacing         | integer                           | How many forward facing child seats were requested by this group.
+boosterSeat           | integer                           | How many booster seats were requested by this group.
+booster               | integer                           | How many boosters were requested by this group.
 
 ## Luggage
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-carryOns              | integer                           | Total count of carry ons for all passengers in this order.
-suitcases             | integer                           | Total count of suitcases for all passengers in this order.
+carryOns              | integer                           | Total count of carry ons for all passengers in this group.
+suitcases             | integer                           | Total count of suitcases for all passengers in this group.

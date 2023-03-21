@@ -106,7 +106,7 @@
             <p>If you are using correlation ids on your side as well, you can send us <code>x-correlation-id</code> header with your requests and we will use your own correlation id value.</p>
             <p><a href="https://microsoft.github.io/code-with-engineering-playbook/observability/correlation-id/">About correlation ids</a></p>
             <h1 id="trip-api">Trip API</h1>
-            <p>A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple orders in case of a shared ride.</p>
+            <p>A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple passenger groups in case of a shared ride.</p>
             <h2 id="trips-endpoint">Trips endpoint</h2>
             <blockquote>
                <p>To search for all trips assigned to your company with departure time from the start of today, use the following call:</p>
@@ -134,23 +134,23 @@
       <span class="hljs-attr">&quot;englishSpeakingDriver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;acceptationNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Fiat Tipo station vagon&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;orders&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-attr">&quot;passengerGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
         <span class="hljs-punctuation">{</span>
           <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11e4f50f-37cb-4f01-9d0d-9b76787a0dca&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;bookingReference&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11E4F5&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;origin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
             <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Prague&quot;</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">&quot;latitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50.0755</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14.4378</span><span class="hljs-punctuation">,</span>
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;destination&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
             <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Vienna&quot;</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">&quot;latitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">48.2082</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">16.3738</span><span class="hljs-punctuation">,</span>
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-          <span class="hljs-attr">&quot;pickupAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Metropolitan Old Town hotel, Haštalská, Old Town, Czechia&quot;</span><span class="hljs-punctuation">,</span>
-          <span class="hljs-attr">&quot;dropoffAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;pickup&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Metropolitan Old Town hotel, Haštalská, Old Town, Czechia&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;dropoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Novák&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;leadPassengerPhone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;+420111111111&quot;</span><span class="hljs-punctuation">,</span>
@@ -166,6 +166,69 @@
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;We would like some non-sparkling water&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;driverNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;64071bc2-b0f8-48f0-a797-1a438eb01caa&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pool&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;vehicleType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;shuttle&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;englishSpeakingDriver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>      
+      <span class="hljs-attr">&quot;passengerGroups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;a988a761-3d71-43cb-b290-9be150245a28&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;bookingReference&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A988A7&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;origin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Positano&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;destination&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;pickup&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Mandara Parking&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;dropoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples Airport: Naples Airport&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Novák&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerPhone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;+420111111111&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;luggage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;carryOns&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;suitcases&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;I would like some non-sparkling water&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;3919ca49-7153-4c50-b395-56bc026d30be&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;bookingReference&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;3919CA&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:30:00Z&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;origin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Positano&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;destination&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;pickup&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Villa Yiara, Viale Pasitea, Positano, SA, Italy&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;latitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">40.628749</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14.4813395</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;dropoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples city center (Napoli Centrale Train Station): Naples city center (Napoli Centrale Train Station&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Sokol&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerPhone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;+420333333333&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;luggage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;carryOns&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;suitcases&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;I would like some sparkling water&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
         <span class="hljs-punctuation">}</span>
       <span class="hljs-punctuation">]</span>
@@ -303,7 +366,7 @@
                   <tr>
                      <td>departureAt</td>
                      <td>string</td>
-                     <td>UTC timestamp of the departure date with time. For a trip covering multiple orders this will be the minimum from all orders.</td>
+                     <td>UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.</td>
                   </tr>
                   <tr>
                      <td>acceptationNote</td>
@@ -311,13 +374,13 @@
                      <td>Optional. Acceptation note for this trip.</td>
                   </tr>
                   <tr>
-                     <td>orders</td>
-                     <td>list of <a href="#order">Order</a></td>
-                     <td>List of orders that this trip covers. Will be one order for private trips and one or more for pool trips.</td>
+                     <td>passengerGroups</td>
+                     <td>list of <a href="#passengergroup">PassengerGroup</a></td>
+                     <td>List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.</td>
                   </tr>
                </tbody>
             </table>
-            <h2 id="order">Order</h2>
+            <h2 id="passengergroup">PassengerGroup</h2>
             <table>
                <thead>
                   <tr>
@@ -330,12 +393,12 @@
                   <tr>
                      <td>id</td>
                      <td>string</td>
-                     <td>Unique id of this order.</td>
+                     <td>Unique id of this group.</td>
                   </tr>
                   <tr>
                      <td>bookingReference</td>
                      <td>string</td>
-                     <td>Booking reference of this order.</td>
+                     <td>Booking reference of this group.</td>
                   </tr>
                   <tr>
                      <td>departureAt</td>
@@ -353,19 +416,19 @@
                      <td>Information about the destination location.</td>
                   </tr>
                   <tr>
-                     <td>pickupAddress</td>
-                     <td>string</td>
-                     <td>The pickup address.</td>
+                     <td>pickup</td>
+                     <td><a href="#mappoint">MapPoint</a></td>
+                     <td>The pickup address/coordinates.</td>
                   </tr>
                   <tr>
-                     <td>dropoffAddress</td>
-                     <td>string</td>
-                     <td>The dropoff address.</td>
+                     <td>dropoff</td>
+                     <td><a href="#mappoint">MapPoint</a></td>
+                     <td>The dropoff address/coordinates.</td>
                   </tr>
                   <tr>
                      <td>passengersCount</td>
                      <td>integer</td>
-                     <td>Count of passengers for this order.</td>
+                     <td>Count of passengers in this group.</td>
                   </tr>
                   <tr>
                      <td>leadPassengerName</td>
@@ -380,7 +443,7 @@
                   <tr>
                      <td>requestedChildSeats</td>
                      <td><a href="#childseats">ChildSeatsCounts</a></td>
-                     <td>Counts of requested child seats by type.</td>
+                     <td>Optional. Counts of requested child seats by type.</td>
                   </tr>
                   <tr>
                      <td>luggage</td>
@@ -390,17 +453,17 @@
                   <tr>
                      <td>customerNote</td>
                      <td>string</td>
-                     <td>Customer&#39;s note. Includes flight/train number.</td>
+                     <td>Optional. Customer&#39;s note. Includes flight/train number.</td>
                   </tr>
                   <tr>
                      <td>driverNote</td>
                      <td>string</td>
-                     <td>Note for the driver.</td>
+                     <td>Optional. Note for the driver.</td>
                   </tr>
                   <tr>
                      <td>cashPayment</td>
                      <td>boolean</td>
-                     <td>Specifies if this order is paid in cash.</td>
+                     <td>Specifies if this passenger group is paying in cash.</td>
                   </tr>
                </tbody>
             </table>
@@ -418,6 +481,23 @@
                      <td>name</td>
                      <td>string</td>
                      <td>Name of the location.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2 id="mappoint">MapPoint</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>address</td>
+                     <td>string</td>
+                     <td>The pickup/dropoff address.</td>
                   </tr>
                   <tr>
                      <td>latitude</td>
@@ -444,22 +524,22 @@
                   <tr>
                      <td>rearFacing</td>
                      <td>integer</td>
-                     <td>How many rear facing child seats were requested for this order.</td>
+                     <td>How many rear facing child seats were requested by this group.</td>
                   </tr>
                   <tr>
                      <td>forwardFacing</td>
                      <td>integer</td>
-                     <td>How many forward facing child seats were requested for this order.</td>
+                     <td>How many forward facing child seats were requested by this group.</td>
                   </tr>
                   <tr>
                      <td>boosterSeat</td>
                      <td>integer</td>
-                     <td>How many booster seats were requested for this order.</td>
+                     <td>How many booster seats were requested by this group.</td>
                   </tr>
                   <tr>
                      <td>booster</td>
                      <td>integer</td>
-                     <td>How many boosters were requested for this order.</td>
+                     <td>How many boosters were requested by this group.</td>
                   </tr>
                </tbody>
             </table>
@@ -476,12 +556,12 @@
                   <tr>
                      <td>carryOns</td>
                      <td>integer</td>
-                     <td>Total count of carry ons for all passengers in this order.</td>
+                     <td>Total count of carry ons for all passengers in this group.</td>
                   </tr>
                   <tr>
                      <td>suitcases</td>
                      <td>integer</td>
-                     <td>Total count of suitcases for all passengers in this order.</td>
+                     <td>Total count of suitcases for all passengers in this group.</td>
                   </tr>
                </tbody>
             </table>
