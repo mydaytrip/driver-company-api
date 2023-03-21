@@ -255,7 +255,7 @@ country               | string                            | Name of the country 
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-address               | string                            | The pickup/dropoff address.
+address               | string                            | The address as text.
 latitude              | number                            | Optional. Latitude in degrees, if provided.
 longitude             | number                            | Optional. Longitude in degrees, if provided.
 
