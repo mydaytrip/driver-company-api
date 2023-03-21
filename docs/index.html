@@ -109,15 +109,20 @@
             <p>A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple orders in case of a shared ride.</p>
             <h2 id="trips-endpoint">Trips endpoint</h2>
             <blockquote>
-               <p>To search for all trips assigned to your company that were created or edited between two dates, use the following call:</p>
+               <p>To search for all trips assigned to your company with departure time from the start of today, use the following call:</p>
             </blockquote>
-            <pre class="highlight bash"><code>curl <span class="hljs-string">&quot;https://api.staging.mydaytrip.net/driver-company/v1/trips&quot;</span>
+            <pre class="highlight bash"><code>curl <span class="hljs-string">&quot;https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&amp;departureTimeTo=1689326157&quot;</span>
   -H <span class="hljs-string">&quot;x-api-key: your-api-key&quot;</span></code></pre><pre class="highlight javascript"><code></code></pre><pre class="highlight python"><code></code></pre>
             <blockquote>
-               <p>The above call returns JSON structured like this:</p>
+               <p>To search for all trips assigned to your company with departure time between two specified dates, use the following call:</p>
+            </blockquote>
+            <pre class="highlight bash"><code>curl <span class="hljs-string">&quot;https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&amp;departureTimeTo=1689326157&quot;</span>
+  -H <span class="hljs-string">&quot;x-api-key: your-api-key&quot;</span></code></pre><pre class="highlight javascript"><code></code></pre><pre class="highlight python"><code></code></pre>
+            <blockquote>
+               <p>The above calls return JSON structured like this:</p>
             </blockquote>
             <pre class="highlight json"><code></code></pre>
-            <p>This endpoint returns all trips assigned to your company. You can filter the trips by created/edited date.</p>
+            <p>This endpoint returns all trips assigned to your company. You can filter the trips by departure time.</p>
             <h3 id="url-path">URL path</h3>
             <p><code>/driver-company/v1/trips</code></p>
             <h3 id="query-parameters">Query Parameters</h3>
@@ -131,34 +136,19 @@
                </thead>
                <tbody>
                   <tr>
-                     <td>originLatitude</td>
-                     <td>number</td>
-                     <td>Origin latitude in degrees.</td>
-                  </tr>
-                  <tr>
-                     <td>originLongitude</td>
-                     <td>number</td>
-                     <td>Origin longitude in degrees.</td>
-                  </tr>
-                  <tr>
-                     <td>destinationLatitude</td>
-                     <td>number</td>
-                     <td>Destination latitude in degrees.</td>
-                  </tr>
-                  <tr>
-                     <td>originLongitude</td>
-                     <td>number</td>
-                     <td>Destination longitude in degrees.</td>
-                  </tr>
-                  <tr>
-                     <td>departureTime</td>
+                     <td>departureTimeFrom</td>
                      <td>integer</td>
-                     <td>Departure time as a UNIX epoch timestamp in seconds.</td>
+                     <td>Minimum departure time as a UNIX epoch timestamp in seconds. If not provided it will default to start of current day.</td>
                   </tr>
                   <tr>
-                     <td>passengersCount</td>
+                     <td>departureTimeTo</td>
                      <td>integer</td>
-                     <td>Count of passengers to transport. Must be between 1 and 10.</td>
+                     <td>Maximum departure time as a UNIX epoch timestamp in seconds. If not provided then no maximum filter will be applied and every future trip after <code>departureTimeFrom</code> will be returned.</td>
+                  </tr>
+                  <tr>
+                     <td>pageIndex</td>
+                     <td>integer</td>
+                     <td>Page index to return. If not provided it will default to 0.</td>
                   </tr>
                </tbody>
             </table>
@@ -173,29 +163,29 @@
                </thead>
                <tbody>
                   <tr>
-                     <td>searchId</td>
-                     <td>string</td>
-                     <td>Unique id of your search query.</td>
-                  </tr>
-                  <tr>
-                     <td>expiresAt</td>
-                     <td>string</td>
-                     <td>UTC timestamp of when the offers in this response expire. After this time it is no longer possible to book them, you need to make a new search.</td>
-                  </tr>
-                  <tr>
-                     <td>passengersCount</td>
+                     <td>pageIndex</td>
                      <td>integer</td>
-                     <td>The count of passengers this search query was for.</td>
+                     <td>Page index of this result section, starting from 0.</td>
                   </tr>
                   <tr>
-                     <td>currency</td>
-                     <td>string</td>
-                     <td>Currency used for all prices in this response.</td>
+                     <td>pageSize</td>
+                     <td>integer</td>
+                     <td>Size of each page.</td>
                   </tr>
                   <tr>
-                     <td>options</td>
-                     <td>list of <a href="#tripoption">TripOption</a></td>
-                     <td>List of options for this trip.</td>
+                     <td>tripCount</td>
+                     <td>integer</td>
+                     <td>Actual count of trips on this page, can be lower than <code>pageSize</code> for the last page.</td>
+                  </tr>
+                  <tr>
+                     <td>nextPage</td>
+                     <td>boolean</td>
+                     <td>Specifies if there is a next page with results after this one.</td>
+                  </tr>
+                  <tr>
+                     <td>trip</td>
+                     <td>list of <a href="#trip">Trip</a></td>
+                     <td>List of trips on this page.</td>
                   </tr>
                </tbody>
             </table>
@@ -215,6 +205,238 @@
                   <tr>
                      <td>401</td>
                      <td>API key missing or invalid.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h1 id="entities">Entities</h1>
+            <p>Below is a documentation of all object entities returned by the Daytrip driver company API.</p>
+            <h2 id="trip">Trip</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>id</td>
+                     <td>string</td>
+                     <td>Unique id of this trip.</td>
+                  </tr>
+                  <tr>
+                     <td>type</td>
+                     <td>string</td>
+                     <td>Type of the trip. &quot;private&quot; or &quot;pool&quot; (shared).</td>
+                  </tr>
+                  <tr>
+                     <td>vehicleType</td>
+                     <td>string</td>
+                     <td>Type of vehicle for the trip. &quot;sedan&quot;, &quot;mpv&quot;, &quot;van&quot;, &quot;luxury&quot; or &quot;shuttle&quot;</td>
+                  </tr>
+                  <tr>
+                     <td>vehicleId</td>
+                     <td>string</td>
+                     <td>Optional. Id of the assigned vehicle, if assigned.</td>
+                  </tr>
+                  <tr>
+                     <td>vehicleModel</td>
+                     <td>string</td>
+                     <td>Optional. Information about assigned vehicle model, if assigned and we have the info.</td>
+                  </tr>
+                  <tr>
+                     <td>englishSpeakingDriver</td>
+                     <td>boolean</td>
+                     <td>Specifies if this trip requires an English-speaking driver.</td>
+                  </tr>
+                  <tr>
+                     <td>departureAt</td>
+                     <td>string</td>
+                     <td>UTC timestamp of the departure date with time.</td>
+                  </tr>
+                  <tr>
+                     <td>acceptationNote</td>
+                     <td>string</td>
+                     <td>Optional. Acceptation note for this trip.</td>
+                  </tr>
+                  <tr>
+                     <td>orders</td>
+                     <td>list of <a href="#order">Order</a></td>
+                     <td>List of orders that this trip covers. Will be one order for private trips and one or more for pool trips.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2 id="order">Order</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>id</td>
+                     <td>string</td>
+                     <td>Unique id of this order.</td>
+                  </tr>
+                  <tr>
+                     <td>bookingReference</td>
+                     <td>string</td>
+                     <td>Booking reference of this order.</td>
+                  </tr>
+                  <tr>
+                     <td>departureAt</td>
+                     <td>string</td>
+                     <td>UTC timestamp of the departure date with time.</td>
+                  </tr>
+                  <tr>
+                     <td>origin</td>
+                     <td><a href="#location">Location</a></td>
+                     <td>Information about the origin location.</td>
+                  </tr>
+                  <tr>
+                     <td>destination</td>
+                     <td><a href="#location">Location</a></td>
+                     <td>Information about the destination location.</td>
+                  </tr>
+                  <tr>
+                     <td>pickupAddress</td>
+                     <td>string</td>
+                     <td>The pickup address.</td>
+                  </tr>
+                  <tr>
+                     <td>dropoffAddress</td>
+                     <td>string</td>
+                     <td>The dropoff address.</td>
+                  </tr>
+                  <tr>
+                     <td>passengersCount</td>
+                     <td>integer</td>
+                     <td>Count of passengers for this order.</td>
+                  </tr>
+                  <tr>
+                     <td>leadPassengerName</td>
+                     <td>string</td>
+                     <td>Name of the lead passenger.</td>
+                  </tr>
+                  <tr>
+                     <td>leadPassengerPhone</td>
+                     <td>string</td>
+                     <td>Phone of the lead passenger, including country code.</td>
+                  </tr>
+                  <tr>
+                     <td>requestedChildSeats</td>
+                     <td><a href="#childseats">ChildSeatsCounts</a></td>
+                     <td>Counts of requested child seats by type.</td>
+                  </tr>
+                  <tr>
+                     <td>luggage</td>
+                     <td><a href="#luggage">Luggage</a></td>
+                     <td>Counts of luggage per type.</td>
+                  </tr>
+                  <tr>
+                     <td>customerNote</td>
+                     <td>string</td>
+                     <td>Customer&#39;s note. Includes flight/train number.</td>
+                  </tr>
+                  <tr>
+                     <td>driverNote</td>
+                     <td>string</td>
+                     <td>Note for the driver.</td>
+                  </tr>
+                  <tr>
+                     <td>cashPayment</td>
+                     <td>boolean</td>
+                     <td>Specifies if this order is paid in cash.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2 id="location">Location</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>name</td>
+                     <td>string</td>
+                     <td>Name of the location.</td>
+                  </tr>
+                  <tr>
+                     <td>address</td>
+                     <td>string</td>
+                     <td>Location address.</td>
+                  </tr>
+                  <tr>
+                     <td>latitude</td>
+                     <td>number</td>
+                     <td>Optional. Latitude in degrees, if provided.</td>
+                  </tr>
+                  <tr>
+                     <td>longitude</td>
+                     <td>number</td>
+                     <td>Optional. Longitude in degrees, if provided.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2 id="childseats">ChildSeats</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>rearFacing</td>
+                     <td>integer</td>
+                     <td>How many rear facing child seats were requested for this order.</td>
+                  </tr>
+                  <tr>
+                     <td>forwardFacing</td>
+                     <td>integer</td>
+                     <td>How many forward facing child seats were requested for this order.</td>
+                  </tr>
+                  <tr>
+                     <td>boosterSeat</td>
+                     <td>integer</td>
+                     <td>How many booster seats were requested for this order.</td>
+                  </tr>
+                  <tr>
+                     <td>booster</td>
+                     <td>integer</td>
+                     <td>How many boosters were requested for this order.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <h2 id="luggage">Luggage</h2>
+            <table>
+               <thead>
+                  <tr>
+                     <th>Property</th>
+                     <th>Type</th>
+                     <th>Description</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>carryOns</td>
+                     <td>integer</td>
+                     <td>Total count of carry ons for all passengers in this order.</td>
+                  </tr>
+                  <tr>
+                     <td>suitcases</td>
+                     <td>integer</td>
+                     <td>Total count of suitcases for all passengers in this order.</td>
                   </tr>
                </tbody>
             </table>

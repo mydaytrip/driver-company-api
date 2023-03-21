@@ -52,7 +52,7 @@ Parameter           | Type    | Description
 ------------------- | ------- | -----------
 departureTimeFrom   | integer | Minimum departure time as a UNIX epoch timestamp in seconds. If not provided it will default to start of current day.
 departureTimeTo     | integer | Maximum departure time as a UNIX epoch timestamp in seconds. If not provided then no maximum filter will be applied and every future trip after `departureTimeFrom` will be returned.
-pageIndex           | integer | Page index to return. Will default to 0.
+pageIndex           | integer | Page index to return. If not provided it will default to 0.
 
 ### Response body
 
@@ -62,7 +62,7 @@ pageIndex       | integer                           | Page index of this result 
 pageSize        | integer                           | Size of each page.
 tripCount       | integer                           | Actual count of trips on this page, can be lower than `pageSize` for the last page.
 nextPage        | boolean                           | Specifies if there is a next page with results after this one.
-trip            | list of Trip                      | List of trips on this page.
+trip            | list of [Trip](#trip)             | List of trips on this page.
 
 ### Error status codes
 
@@ -70,3 +70,66 @@ Status code | Description
 ----------- | -----------
 400         | Invalid request - missing mandatory query parameter, parameter has wrong type or wrong passenger count.
 401         | API key missing or invalid.
+
+# Entities
+
+Below is a documentation of all object entities returned by the Daytrip driver company API.
+
+## Trip
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+id                    | string                            | Unique id of this trip.
+type                  | string                            | Type of the trip. "private" or "pool" (shared).
+vehicleType           | string                            | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
+vehicleId             | string                            | Optional. Id of the assigned vehicle, if assigned.
+vehicleModel          | string                            | Optional.  Information about assigned vehicle model, if assigned and we have the info.
+englishSpeakingDriver | boolean                           | Specifies if this trip requires an English-speaking driver.
+departureAt           | string                            | UTC timestamp of the departure date with time.
+acceptationNote       | string                            | Optional. Acceptation note for this trip.
+orders                | list of [Order](#order)           | List of orders that this trip covers. Will be one order for private trips and one or more for pool trips.
+
+## Order
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+id                    | string                            | Unique id of this order.
+bookingReference      | string                            | Booking reference of this order.
+departureAt           | string                            | UTC timestamp of the departure date with time.
+origin                | [Location](#location)             | Information about the origin location.
+destination           | [Location](#location)             | Information about the destination location.
+pickupAddress         | string                            | The pickup address.
+dropoffAddress        | string                            | The dropoff address.
+passengersCount       | integer                           | Count of passengers for this order.
+leadPassengerName     | string                            | Name of the lead passenger.
+leadPassengerPhone    | string                            | Phone of the lead passenger, including country code.
+requestedChildSeats   | [ChildSeatsCounts](#childseats)   | Counts of requested child seats by type.
+luggage               | [Luggage](#luggage)               | Counts of luggage per type.
+customerNote          | string                            | Customer's note. Includes flight/train number.
+driverNote            | string                            | Note for the driver.
+cashPayment           | boolean                           | Specifies if this order is paid in cash.
+
+## Location
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+name                  | string                            | Name of the location.
+address               | string                            | Location address.
+latitude              | number                            | Optional. Latitude in degrees, if provided.
+longitude             | number                            | Optional. Longitude in degrees, if provided.
+
+## ChildSeats
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+rearFacing            | integer                           | How many rear facing child seats were requested for this order.
+forwardFacing         | integer                           | How many forward facing child seats were requested for this order.
+boosterSeat           | integer                           | How many booster seats were requested for this order.
+booster               | integer                           | How many boosters were requested for this order.
+
+## Luggage
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+carryOns              | integer                           | Total count of carry ons for all passengers in this order.
+suitcases             | integer                           | Total count of suitcases for all passengers in this order.
