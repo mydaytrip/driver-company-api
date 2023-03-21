@@ -34,6 +34,21 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 
 ```
 
+> To get the second page of results, use the following call:
+
+```bash
+curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157&pageIndex=1"
+  -H "x-api-key: your-api-key"
+```
+
+```javascript
+
+```
+
+```python
+
+```
+
 > The above calls return JSON structured like this:
 
 ```json
@@ -57,9 +72,11 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "departureAt": "2023-07-05T18:00:00Z",
           "origin": {
             "name": "Prague",
+            "country": "Czech Republic",
           },
           "destination": {
             "name": "Vienna",
+            "country": "Austria",
           },
           "pickup": {
             "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
@@ -99,9 +116,11 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "departureAt": "2023-07-05T18:00:00Z",
           "origin": {
             "name": "Positano",
+            "country": "Italy",
           },
           "destination": {
             "name": "Naples",
+            "country": "Italy",
           },
           "pickup": {
             "address": "Mandara Parking",
@@ -125,9 +144,11 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "departureAt": "2023-07-05T18:30:00Z",
           "origin": {
             "name": "Positano",
+            "country": "Italy",
           },
           "destination": {
             "name": "Naples",
+            "country": "Italy",
           },
           "pickup": {
             "address": "Villa Yiara, Viale Pasitea, Positano, SA, Italy",
@@ -153,7 +174,7 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 }
 ```
 
-This endpoint returns all trips assigned to your company. You can filter the trips by departure time.
+This endpoint returns all trips assigned to your company (split into multiple pages in case of high trip counts). You can filter the trips by departure time.
 
 ### URL path
 
@@ -190,16 +211,16 @@ Below is a documentation of all object entities returned by the Daytrip driver c
 
 ## Trip
 
-Property              | Type                              | Description
---------------------- | --------------------------------- | -----------
-id                    | string                            | Unique id of this trip.
-type                  | string                            | Type of the trip. "private" or "pool" (shared).
-vehicleType           | string                            | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
-vehicleId             | string                            | Optional. Id of the assigned vehicle, if assigned.
-vehicleModel          | string                            | Optional.  Information about assigned vehicle model, if assigned and we have the info.
-englishSpeakingDriver | boolean                           | Specifies if this trip requires an English-speaking driver.
-departureAt           | string                            | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
-acceptationNote       | string                            | Optional. Acceptation note for this trip.
+Property              | Type                                       | Description
+--------------------- | ------------------------------------------ | -----------
+id                    | string                                     | Unique id of this trip.
+type                  | string                                     | Type of the trip. "private" or "pool" (shared).
+vehicleType           | string                                     | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
+vehicleId             | string                                     | Optional. Id of the assigned vehicle, if assigned.
+vehicleModel          | string                                     | Optional.  Information about assigned vehicle model, if assigned and we have the info.
+englishSpeakingDriver | boolean                                    | Specifies if this trip requires an English-speaking driver.
+departureAt           | string                                     | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
+acceptationNote       | string                                     | Optional. Acceptation note for this trip.
 passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.
 
 ## PassengerGroup
@@ -221,12 +242,14 @@ luggage               | [Luggage](#luggage)               | Counts of luggage pe
 customerNote          | string                            | Optional. Customer's note. Includes flight/train number.
 driverNote            | string                            | Optional. Note for the driver.
 cashPayment           | boolean                           | Specifies if this passenger group is paying in cash.
+stops                 | list of [Stop](#stop)             | Sightseeing or custom stops.
 
 ## Location
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
 name                  | string                            | Name of the location.
+country               | string                            | Name of the country the location is in.
 
 ## MapPoint
 
@@ -251,3 +274,11 @@ Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
 carryOns              | integer                           | Total count of carry ons for all passengers in this group.
 suitcases             | integer                           | Total count of suitcases for all passengers in this group.
+
+## Stop
+
+Property              | Type                              | Description
+--------------------- | --------------------------------- | -----------
+name                  | string                            | Name of the stop.
+durationInMinutes     | integer                           | Duration of the stop in minutes.
+address               | [MapPoint](#mappoint)             | Address or coordinates of the stop location.
