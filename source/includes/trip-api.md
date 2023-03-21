@@ -37,7 +37,57 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 > The above calls return JSON structured like this:
 
 ```json
-
+{
+  "pageIndex": 0,
+  "pageSize": 100,
+  "tripCount": 100,
+  "nextPage": true,
+  "trips": [
+    {
+      "id": "9ed90a6a-f09f-4843-b6ae-6f98859eb877",
+      "type": "private",
+      "vehicleType": "sedan",
+      "englishSpeakingDriver": true,
+      "departureAt": "2023-07-05T18:00:00Z",
+      "acceptationNote": "Fiat Tipo station vagon",
+      "orders": [
+        {
+          "id": "11e4f50f-37cb-4f01-9d0d-9b76787a0dca",
+          "bookingReference": "11E4F5",
+          "departureAt": "2023-07-05T18:00:00Z",
+          "origin": {
+            "name": "Prague",
+            "latitude": 50.0755,
+            "longitude": 14.4378,
+          },
+          "destination": {
+            "name": "Vienna",
+            "latitude": 48.2082,
+            "longitude": 16.3738,
+          },
+          "pickupAddress": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
+          "dropoffAddress": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria",
+          "passengersCount": 3,
+          "leadPassengerName": "Jan Novák",
+          "leadPassengerPhone": "+420111111111",
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 1,
+          },
+          "luggage": {
+            "carryOns": 2,
+            "suitcases": 3,
+          },
+          "customerNote": "We would like some non-sparkling water",
+          "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.",
+          "cashPayment": true,
+        }
+      ]
+    }
+  ]
+}
 ```
 
 This endpoint returns all trips assigned to your company. You can filter the trips by departure time.
@@ -62,7 +112,7 @@ pageIndex       | integer                           | Page index of this result 
 pageSize        | integer                           | Size of each page.
 tripCount       | integer                           | Actual count of trips on this page, can be lower than `pageSize` for the last page.
 nextPage        | boolean                           | Specifies if there is a next page with results after this one.
-trip            | list of [Trip](#trip)             | List of trips on this page.
+trips           | list of [Trip](#trip)             | List of trips on this page.
 
 ### Error status codes
 
@@ -114,7 +164,6 @@ cashPayment           | boolean                           | Specifies if this or
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
 name                  | string                            | Name of the location.
-address               | string                            | Location address.
 latitude              | number                            | Optional. Latitude in degrees, if provided.
 longitude             | number                            | Optional. Longitude in degrees, if provided.
 

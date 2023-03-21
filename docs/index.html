@@ -121,7 +121,57 @@
             <blockquote>
                <p>The above calls return JSON structured like this:</p>
             </blockquote>
-            <pre class="highlight json"><code></code></pre>
+            <pre class="highlight json"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;pageIndex&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;pageSize&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;tripCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;nextPage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;trips&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;9ed90a6a-f09f-4843-b6ae-6f98859eb877&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;private&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;vehicleType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sedan&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;englishSpeakingDriver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;acceptationNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Fiat Tipo station vagon&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;orders&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11e4f50f-37cb-4f01-9d0d-9b76787a0dca&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;bookingReference&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11E4F5&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2023-07-05T18:00:00Z&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;origin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Prague&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;latitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50.0755</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14.4378</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;destination&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Vienna&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;latitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">48.2082</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">16.3738</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;pickupAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Metropolitan Old Town hotel, Haštalská, Old Town, Czechia&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;dropoffAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Novák&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerPhone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;+420111111111&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;requestedChildSeats&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;rearFacing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;forwardFacing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;boosterSeat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;booster&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;luggage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;carryOns&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;suitcases&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;We would like some non-sparkling water&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;driverNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span></code></pre>
             <p>This endpoint returns all trips assigned to your company. You can filter the trips by departure time.</p>
             <h3 id="url-path">URL path</h3>
             <p><code>/driver-company/v1/trips</code></p>
@@ -183,7 +233,7 @@
                      <td>Specifies if there is a next page with results after this one.</td>
                   </tr>
                   <tr>
-                     <td>trip</td>
+                     <td>trips</td>
                      <td>list of <a href="#trip">Trip</a></td>
                      <td>List of trips on this page.</td>
                   </tr>
@@ -368,11 +418,6 @@
                      <td>name</td>
                      <td>string</td>
                      <td>Name of the location.</td>
-                  </tr>
-                  <tr>
-                     <td>address</td>
-                     <td>string</td>
-                     <td>Location address.</td>
                   </tr>
                   <tr>
                      <td>latitude</td>
