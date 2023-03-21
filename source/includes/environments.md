@@ -4,7 +4,7 @@ Daytrip offers a sandbox environment where you can test your integration with th
 
 ## URLs
 
-Environment | Base partner API url
+Environment | Base driver company API url
 ----------- | --------------------
-Sandbox     | https://api.staging.mydaytrip.net/partners/v3/
-Production  | https://api.mydaytrip.com/partners/v3/
+Sandbox     | https://api.staging.mydaytrip.net/driver-company/v1/
+Production  | https://api.mydaytrip.com/driver-company/v1/

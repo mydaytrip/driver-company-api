@@ -7,6 +7,6 @@ HTTP Code | Meaning
 400        | Bad Request - Missing mandatory parameters, wrong types of parameters or not a valid json.
 401        | Unauthorized - API key is missing or invalid.
 403        | Forbidden - The requested operation is forbidden.
-404        | Not Found - No trips found, trip option not found, booking not found, endpoint does not exist.
+404        | Not Found - You are likely calling an URL that doesn't exist.
 500        | Internal Server Error - We had a problem with our service. Please retry your request.
 503        | Service Unavailable - We had a problem with our service. Please retry your request.
