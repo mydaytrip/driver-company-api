@@ -85,7 +85,7 @@ vehicleType           | string                            | Type of vehicle for 
 vehicleId             | string                            | Optional. Id of the assigned vehicle, if assigned.
 vehicleModel          | string                            | Optional.  Information about assigned vehicle model, if assigned and we have the info.
 englishSpeakingDriver | boolean                           | Specifies if this trip requires an English-speaking driver.
-departureAt           | string                            | UTC timestamp of the departure date with time.
+departureAt           | string                            | UTC timestamp of the departure date with time. For a trip covering multiple orders this will be the minimum from all orders.
 acceptationNote       | string                            | Optional. Acceptation note for this trip.
 orders                | list of [Order](#order)           | List of orders that this trip covers. Will be one order for private trips and one or more for pool trips.
 
