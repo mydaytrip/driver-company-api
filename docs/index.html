@@ -63,7 +63,7 @@
             <blockquote>
                <p>Make sure to replace <code>your-api-key</code> with your API key.</p>
             </blockquote>
-            <p>Daytrip API uses API keys to allow access to the API. The API key needs to be included in the <code>x-api-key</code> header with each API request.</p>
+            <p>Daytrip Driver Company API uses API keys to allow access to the API. The API key needs to be included in the <code>x-api-key</code> header with each API request.</p>
             <p>Your API key carries many privileges, so be sure to keep it secure! Do not share your secret API key in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
             <h1 id="errors">Errors</h1>
             <p>Daytrip uses conventional HTTP response codes to indicate the success or failure of an API request. In general: codes in the 2xx range indicate success. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, no trip was found for given parameters, etc.). Codes in the 5xx range indicate an error with Daytrip&#39;s servers (these are rare).</p>
@@ -102,7 +102,7 @@
                </tbody>
             </table>
             <h1 id="debugging">Debugging</h1>
-            <p>Every response from the Daytrip APi contains a <code>x-correlation-id</code> header with a unique identifier of the HTTP call. If you send us this identifier, we can give you more detailed info about what went wrong with your call.</p>
+            <p>Every response from the Daytrip Driver Company API contains a <code>x-correlation-id</code> header with a unique identifier of the HTTP call. If you send us this identifier, we can give you more detailed info about what went wrong with your call.</p>
             <p>If you are using correlation ids on your side as well, you can send us <code>x-correlation-id</code> header with your requests and we will use your own correlation id value.</p>
             <p><a href="https://microsoft.github.io/code-with-engineering-playbook/observability/correlation-id/">About correlation ids</a></p>
             <h1 id="trip-api">Trip API</h1>
