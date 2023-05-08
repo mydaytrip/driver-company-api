@@ -62,6 +62,8 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
       "id": "9ed90a6a-f09f-4843-b6ae-6f98859eb877",
       "type": "private",
       "vehicleType": "sedan",
+      "vehicleModel": "3 Series station wagon",
+      "licensePlate": "654321",
       "englishSpeakingDriver": true,
       "departureAt": "2023-07-05T18:00:00Z",
       "acceptationNote": "Fiat Tipo station vagon",
@@ -101,12 +103,25 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.",
           "cashPayment": true,
         }
+      ],
+      "stops": [
+        {
+          "name": "National Archeological Museum Chiusi",
+          "durationInMinutes": 90,
+          "address": {
+            "address": "Via Porsenna, 93, 53043 Chiusi SI, Italy",
+            "latitude": 43.0160062,
+            "longitude": 11.9493061,
+          }
+        }
       ]
     },
     {
       "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
       "type": "pool",
       "vehicleType": "shuttle",
+      "vehicleModel": "Mercedes-Benz Vito Tourer",
+      "licensePlate": "123456",
       "englishSpeakingDriver": true,
       "departureAt": "2023-07-05T18:00:00Z",      
       "passengerGroups": [
@@ -168,7 +183,8 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "customerNote": "I would like some sparkling water",
           "cashPayment": true,
         }
-      ]
+      ],
+      "stops": []
     }
   ]
 }
@@ -187,6 +203,7 @@ Parameter           | Type    | Description
 departureTimeFrom   | integer | Minimum departure time as a UNIX epoch timestamp in seconds. If not provided it will default to start of current day.
 departureTimeTo     | integer | Maximum departure time as a UNIX epoch timestamp in seconds. If not provided then no maximum filter will be applied and every future trip after `departureTimeFrom` will be returned.
 pageIndex           | integer | Page index to return. If not provided it will default to 0.
+pageSize            | integer | Size of each page. If not provided it will default to 100.
 
 ### Response body
 
@@ -216,12 +233,13 @@ Property              | Type                                       | Description
 id                    | string                                     | Unique id of this trip.
 type                  | string                                     | Type of the trip. "private" or "pool" (shared).
 vehicleType           | string                                     | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
-vehicleId             | string                                     | Optional. Id of the assigned vehicle, if assigned.
+licensePlate          | string                                     | Optional. License plate of the assigned vehicle, if assigned and it has a license plate information.
 vehicleModel          | string                                     | Optional.  Information about assigned vehicle model, if assigned and we have the info.
 englishSpeakingDriver | boolean                                    | Specifies if this trip requires an English-speaking driver.
 departureAt           | string                                     | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
 acceptationNote       | string                                     | Optional. Acceptation note for this trip.
 passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.
+stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops.
 
 ## PassengerGroup
 
@@ -242,7 +260,6 @@ luggage               | [Luggage](#luggage)               | Counts of luggage pe
 customerNote          | string                            | Optional. Customer's note. Includes flight/train number.
 driverNote            | string                            | Optional. Note for the driver.
 cashPayment           | boolean                           | Specifies if this passenger group is paying in cash.
-stops                 | list of [Stop](#stop)             | Sightseeing or custom stops.
 
 ## Location
 
