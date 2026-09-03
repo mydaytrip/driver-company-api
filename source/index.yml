@@ -9,7 +9,9 @@ includes:
    - authentication
    - errors
    - debugging
+   - compatibility
    - trip-api
+   - changelog
 
 search: true
 
