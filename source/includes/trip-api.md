@@ -45,8 +45,8 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
       "id": "9ed90a6a-f09f-4843-b6ae-6f98859eb877",
       "type": "private",
       "vehicleType": "Sedan",
-      "vehicleModel": "3 Series station wagon",
       "licensePlate": "654321",
+      "vehicleModel": "3 Series station wagon",
       "englishSpeakingDriver": true,
       "departureAt": "2026-07-05T18:00:00.000Z",
       "departureAtUtc": "2026-07-05T16:00:00.000Z",
@@ -74,18 +74,18 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
           "passengersCount": 3,
           "leadPassengerName": "Jan Novák",
           "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 2,
+            "suitcases": 3
+          },
           "requestedChildSeats": {
             "rearFacing": 0,
             "forwardFacing": 0,
             "boosterSeat": 0,
             "booster": 1
           },
-          "luggage": {
-            "carryOns": 2,
-            "suitcases": 3
-          },
-          "customerNote": "We would like some non-sparkling water",
           "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button.",
+          "customerNote": "We would like some non-sparkling water",
           "cashPayment": true
         }
       ],
@@ -105,8 +105,8 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
       "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
       "type": "private",
       "vehicleType": "Shuttle",
-      "vehicleModel": "Mercedes-Benz Vito Tourer",
       "licensePlate": "123456",
+      "vehicleModel": "Mercedes-Benz Vito Tourer",
       "englishSpeakingDriver": true,
       "departureAt": "2026-07-05T18:00:00.000Z",
       "departureAtUtc": "2026-07-05T16:00:00.000Z",
@@ -136,15 +136,15 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
           "passengersCount": 1,
           "leadPassengerName": "Jan Sokol",
           "leadPassengerPhone": "+420333333333",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1
+          },
           "requestedChildSeats": {
             "rearFacing": 0,
             "forwardFacing": 0,
             "boosterSeat": 0,
             "booster": 0
-          },
-          "luggage": {
-            "carryOns": 1,
-            "suitcases": 1
           },
           "customerNote": "I would like some sparkling water",
           "cashPayment": true
@@ -171,15 +171,15 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
           "passengersCount": 1,
           "leadPassengerName": "Jan Novák",
           "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1
+          },
           "requestedChildSeats": {
             "rearFacing": 0,
             "forwardFacing": 0,
             "boosterSeat": 0,
             "booster": 0
-          },
-          "luggage": {
-            "carryOns": 1,
-            "suitcases": 1
           },
           "customerNote": "I would like some non-sparkling water",
           "flightNumber": "FR1234",
@@ -204,20 +204,54 @@ The second trip in the example above carries two passenger groups — a shared r
 
 Parameter           | Type    | Description
 ------------------- | ------- | -----------
-departureTimeFrom   | integer | Minimum departure time as a UNIX epoch timestamp in seconds. If not provided it will default to start of current day.
-departureTimeTo     | integer | Maximum departure time as a UNIX epoch timestamp in seconds. If not provided then no maximum filter will be applied and every future trip after `departureTimeFrom` will be returned.
-pageIndex           | integer | Page index to return. If not provided it will default to 0.
-pageSize            | integer | Size of each page. If not provided it will default to 100.
+departureTimeFrom   | integer | Earliest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. Defaults to the start of the current UTC day.
+departureTimeTo     | integer | Latest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. When omitted, every trip departing after `departureTimeFrom` is returned.
+pageIndex           | integer | Which page to return, counting from 0. Defaults to 0.
+pageSize            | integer | How many trips per page. Defaults to 100. Larger pages are accepted today, but they are slow and we may introduce a limit — see [Compatibility](#compatibility).
+
+<aside class="warning">
+<code>departureTimeFrom</code> and <code>departureTimeTo</code> are matched
+against <code>departureAtUtc</code>, which is genuine UTC. They are
+<strong>not</strong> matched against <code>departureAt</code>, which is local
+time at the pickup. The two fields do not use the same clock, so filtering by
+a timestamp you read off <code>departureAt</code> will be wrong by that
+location's UTC offset. See <a href="#departure-times">Departure times</a>.
+</aside>
+
+### Departure times
+
+Every trip and every passenger group carries two departure timestamps.
+
+**`departureAt` is the local wall-clock time at the pickup location.** It ends
+in `Z`, which normally means UTC, but this value is not UTC. A trip leaving
+Rome at 09:00 local time is sent as `2026-09-05T09:00:00.000Z`, even though
+09:00 in Rome is 07:00 UTC. The field has behaved this way since the API
+launched and is kept unchanged so that existing integrations keep working. If
+all you need is the time to show a driver, read the clock face and ignore the
+`Z`.
+
+**`departureAtUtc` is the real UTC departure time** — `2026-09-05T07:00:00.000Z`
+for that same Rome trip. Use it for anything that involves time arithmetic:
+counting down to pickup, sorting, converting into another timezone, or
+comparing against `departureTimeFrom` and `departureTimeTo`.
+
+The offset between the two is the pickup location's UTC offset on that date,
+so it changes with daylight saving — one hour in Italian winter, two in
+summer.
+
+On a trip with several passenger groups, every group carries the same pair of
+timestamps as the trip itself. Groups on one trip do not depart at different
+times.
 
 ### Response body
 
 Property        | Type                              | Description
 --------------- | --------------------------------- | -----------
-pageIndex       | integer                           | Page index of this result section, starting from 0.
-pageSize        | integer                           | Size of each page.
-tripCount       | integer                           | Actual count of trips on this page, can be lower than `pageSize` for the last page.
-nextPage        | boolean                           | Specifies if there is a next page with results after this one.
-trips           | list of [Trip](#trip)             | List of trips on this page.
+pageIndex       | integer                           | Index of this page, counting from 0.
+pageSize        | integer                           | The page size used for this request.
+tripsCount      | integer                           | How many trips are on this page. Lower than `pageSize` on the last page.
+nextPage        | boolean                           | Whether another page of results follows this one.
+trips           | list of [Trip](#trip)             | The trips on this page, ordered by `departureAtUtc`, earliest first.
 
 ### Error status codes
 
@@ -235,35 +269,38 @@ Below is a documentation of all object entities returned by the Daytrip driver c
 Property              | Type                                       | Description
 --------------------- | ------------------------------------------ | -----------
 id                    | string                                     | Unique id of this trip.
-type                  | string                                     | Type of the trip. "private" or "pool" (shared).
-vehicleType           | string                                     | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
-licensePlate          | string                                     | Optional. License plate of the assigned vehicle, if assigned and it has a license plate information.
-vehicleModel          | string                                     | Optional.  Information about assigned vehicle model, if assigned and we have the info.
-englishSpeakingDriver | boolean                                    | Specifies if this trip requires an English-speaking driver.
-departureAt           | string                                     | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
-acceptationNote       | string                                     | Optional. Acceptation note for this trip.
-passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.
-stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops.
+type                  | string                                     | Always `"private"` today. This field does not tell you whether the ride is shared — a trip with more than one entry in `passengerGroups` is a shared ride.
+vehicleType           | string                                     | One of `"Sedan"`, `"Sedan Lite"`, `"MPV"`, `"MPV Lite"`, `"Van"`, `"Van Lite"`, `"Premium Van"`, `"Luxury Sedan"` or `"Shuttle"`, or `"Unknown"` when no vehicle is assigned yet. New values may be added — see [Compatibility](#compatibility).
+licensePlate          | string                                     | Optional. License plate of the assigned vehicle, when one is assigned and has a plate on record.
+vehicleModel          | string                                     | Optional. Model of the assigned vehicle, when one is assigned and we hold the information.
+englishSpeakingDriver | boolean                                    | Always present. `false` on `"Sedan Lite"` trips, `true` on every other type.
+departureAt           | string                                     | Local wall-clock departure time at the pickup location, despite the `Z` suffix. See [Departure times](#departure-times).
+departureAtUtc        | string                                     | The genuine UTC departure time. Use this one for time arithmetic. See [Departure times](#departure-times).
+acceptationNote       | string                                     | Optional. Note left by the company when it accepted the trip. Returned as `null` when a vehicle is assigned but carries no note.
+passengerGroups       | list of [PassengerGroup](#passengergroup)  | The passenger groups this trip covers, ordered by `id` ascending. One group for a private booking, more than one for a shared ride.
+stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops. An empty list when there are none.
 
 ## PassengerGroup
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-id                    | string                            | Unique id of this group.
+id                    | string                            | Unique id of this group, which is also the Daytrip order id. Quote it to support when asking about a specific booking.
 bookingReference      | string                            | Booking reference of this group.
-departureAt           | string                            | UTC timestamp of the departure date with time.
-origin                | [Location](#location)             | Information about the origin location.
-destination           | [Location](#location)             | Information about the destination location.
-pickup                | [MapPoint](#mappoint)             | The pickup address/coordinates.
-dropoff               | [MapPoint](#mappoint)             | The dropoff address/coordinates.
-passengersCount       | integer                           | Count of passengers in this group.
+departureAt           | string                            | Local wall-clock departure time at the pickup location. Always the same as the trip's `departureAt`. See [Departure times](#departure-times).
+departureAtUtc        | string                            | The genuine UTC departure time. Always the same as the trip's `departureAtUtc`.
+origin                | [Location](#location)             | The origin location.
+destination           | [Location](#location)             | The destination location.
+pickup                | [MapPoint](#mappoint)             | Where to collect the passengers. The address may end in a bracketed note the customer supplied, such as `[Flight number: SQ380]`, `[Ship name: Sun Princess]` or `[Train number: 9367]`.
+dropoff               | [MapPoint](#mappoint)             | Where to drop the passengers off.
+passengersCount       | integer                           | How many passengers are in this group.
 leadPassengerName     | string                            | Name of the lead passenger.
-leadPassengerPhone    | string                            | Phone of the lead passenger, including country code.
-requestedChildSeats   | [ChildSeatsCounts](#childseats)   | Optional. Counts of requested child seats by type.
-luggage               | [Luggage](#luggage)               | Counts of luggage per type.
-customerNote          | string                            | Optional. Customer's note. Includes flight/train number.
+leadPassengerPhone    | string                            | Optional. Phone number of the lead passenger including country code, when we hold one.
+luggage               | [Luggage](#luggage)               | Always present. Luggage counts per type.
+requestedChildSeats   | [ChildSeats](#childseats)         | Always present. How many child seats of each type were requested; every count is 0 when none were.
 driverNote            | string                            | Optional. Note for the driver.
-cashPayment           | boolean                           | Specifies if this passenger group is paying in cash.
+customerNote          | string                            | Optional. Free text written by the customer. Do not parse it for structured data — use `flightNumber` for the flight. A cruise ship name, when the customer gives one at all, arrives here or in `pickup.address` as free text; we do not store it as a separate field.
+flightNumber          | string                            | Optional. The flight number for this booking, when the customer supplied one. The key is absent when there is none. For an airport pickup it may also appear inside `pickup.address`.
+cashPayment           | boolean                           | Whether this passenger group pays the driver in cash.
 
 ## Location
 
