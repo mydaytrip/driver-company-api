@@ -22,6 +22,9 @@ behaviour:
 - `passengerGroups` is documented as always holding exactly one entry. The old
   docs described trips shared between several bookings, which this API has not
   returned since the shared-shuttle product was retired.
+- New section on bookings that need several vehicles: they arrive as separate
+  trips sharing one `bookingReference`, and the passenger, luggage and child
+  seat counts on each describe the whole booking rather than that vehicle.
 - The example responses are now valid JSON and a production example was added.
 - The [Compatibility](#compatibility) section above is new.
 
