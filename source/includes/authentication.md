@@ -7,14 +7,6 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips"
   -H "x-api-key: your-api-key"
 ```
 
-```javascript
-
-```
-
-```python
-
-```
-
 > Make sure to replace `your-api-key` with your API key.
 
 Daytrip Driver Company API uses API keys to allow access to the API. The API key needs to be included in the `x-api-key` header with each API request.

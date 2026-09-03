@@ -4,34 +4,18 @@ A trip is a representation of passenger transportation from point A to point B. 
 
 ## Trips endpoint
 
-> To search for all trips assigned to your company with departure time from the start of today, use the following call:
+> To search for all trips assigned to your company departing from the start of today onwards, use the following call:
+
+```bash
+curl "https://api.staging.mydaytrip.net/driver-company/v1/trips"
+  -H "x-api-key: your-api-key"
+```
+
+> To search for all trips with a departure time between two specified dates, use the following call:
 
 ```bash
 curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
   -H "x-api-key: your-api-key"
-```
-
-```javascript
-
-```
-
-```python
-
-```
-
-> To search for all trips assigned to your company with departure time between two specified dates, use the following call:
-
-```bash
-curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
-  -H "x-api-key: your-api-key"
-```
-
-```javascript
-
-```
-
-```python
-
 ```
 
 > To get the second page of results, use the following call:
@@ -41,12 +25,11 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
   -H "x-api-key: your-api-key"
 ```
 
-```javascript
+> The same call against production, which needs a separate API key:
 
-```
-
-```python
-
+```bash
+curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
+  -H "x-api-key: your-production-api-key"
 ```
 
 > The above calls return JSON structured like this:
@@ -55,36 +38,38 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 {
   "pageIndex": 0,
   "pageSize": 100,
-  "tripCount": 100,
-  "nextPage": true,
+  "tripsCount": 2,
+  "nextPage": false,
   "trips": [
     {
       "id": "9ed90a6a-f09f-4843-b6ae-6f98859eb877",
       "type": "private",
-      "vehicleType": "sedan",
+      "vehicleType": "Sedan",
       "vehicleModel": "3 Series station wagon",
       "licensePlate": "654321",
       "englishSpeakingDriver": true,
-      "departureAt": "2023-07-05T18:00:00Z",
-      "acceptationNote": "Fiat Tipo station vagon",
+      "departureAt": "2026-07-05T18:00:00.000Z",
+      "departureAtUtc": "2026-07-05T16:00:00.000Z",
+      "acceptationNote": "Fiat Tipo station wagon",
       "passengerGroups": [
         {
           "id": "11e4f50f-37cb-4f01-9d0d-9b76787a0dca",
           "bookingReference": "11E4F5",
-          "departureAt": "2023-07-05T18:00:00Z",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
           "origin": {
             "name": "Prague",
-            "country": "Czech Republic",
+            "country": "Czech Republic"
           },
           "destination": {
             "name": "Vienna",
-            "country": "Austria",
+            "country": "Austria"
           },
           "pickup": {
-            "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
+            "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia"
           },
           "dropoff": {
-            "address": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria",
+            "address": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria"
           },
           "passengersCount": 3,
           "leadPassengerName": "Jan Novák",
@@ -93,15 +78,15 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
             "rearFacing": 0,
             "forwardFacing": 0,
             "boosterSeat": 0,
-            "booster": 1,
+            "booster": 1
           },
           "luggage": {
             "carryOns": 2,
-            "suitcases": 3,
+            "suitcases": 3
           },
           "customerNote": "We would like some non-sparkling water",
-          "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.",
-          "cashPayment": true,
+          "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button.",
+          "cashPayment": true
         }
       ],
       "stops": [
@@ -111,77 +96,94 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "address": {
             "address": "Via Porsenna, 93, 53043 Chiusi SI, Italy",
             "latitude": 43.0160062,
-            "longitude": 11.9493061,
+            "longitude": 11.9493061
           }
         }
       ]
     },
     {
       "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
-      "type": "pool",
-      "vehicleType": "shuttle",
+      "type": "private",
+      "vehicleType": "Shuttle",
       "vehicleModel": "Mercedes-Benz Vito Tourer",
       "licensePlate": "123456",
       "englishSpeakingDriver": true,
-      "departureAt": "2023-07-05T18:00:00Z",      
+      "departureAt": "2026-07-05T18:00:00.000Z",
+      "departureAtUtc": "2026-07-05T16:00:00.000Z",
+      "acceptationNote": null,
       "passengerGroups": [
-        {
-          "id": "a988a761-3d71-43cb-b290-9be150245a28",
-          "bookingReference": "A988A7",
-          "departureAt": "2023-07-05T18:00:00Z",
-          "origin": {
-            "name": "Positano",
-            "country": "Italy",
-          },
-          "destination": {
-            "name": "Naples",
-            "country": "Italy",
-          },
-          "pickup": {
-            "address": "Mandara Parking",
-          },
-          "dropoff": {
-            "address": "Naples Airport: Naples Airport",
-          },
-          "passengersCount": 1,
-          "leadPassengerName": "Jan Novák",
-          "leadPassengerPhone": "+420111111111",
-          "luggage": {
-            "carryOns": 1,
-            "suitcases": 1,
-          },
-          "customerNote": "I would like some non-sparkling water",
-          "cashPayment": true,
-        },
         {
           "id": "3919ca49-7153-4c50-b395-56bc026d30be",
           "bookingReference": "3919CA",
-          "departureAt": "2023-07-05T18:30:00Z",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
           "origin": {
             "name": "Positano",
-            "country": "Italy",
+            "country": "Italy"
           },
           "destination": {
             "name": "Naples",
-            "country": "Italy",
+            "country": "Italy"
           },
           "pickup": {
             "address": "Villa Yiara, Viale Pasitea, Positano, SA, Italy",
             "latitude": 40.628749,
-            "longitude": 14.4813395,
+            "longitude": 14.4813395
           },
           "dropoff": {
-            "address": "Naples city center (Napoli Centrale Train Station): Naples city center (Napoli Centrale Train Station",
+            "address": "Naples city center (Napoli Centrale Train Station)"
           },
           "passengersCount": 1,
           "leadPassengerName": "Jan Sokol",
           "leadPassengerPhone": "+420333333333",
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 0
+          },
           "luggage": {
             "carryOns": 1,
-            "suitcases": 1,
+            "suitcases": 1
           },
           "customerNote": "I would like some sparkling water",
-          "cashPayment": true,
+          "cashPayment": true
+        },
+        {
+          "id": "a988a761-3d71-43cb-b290-9be150245a28",
+          "bookingReference": "A988A7",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
+          "origin": {
+            "name": "Positano",
+            "country": "Italy"
+          },
+          "destination": {
+            "name": "Naples",
+            "country": "Italy"
+          },
+          "pickup": {
+            "address": "Mandara Parking"
+          },
+          "dropoff": {
+            "address": "Naples Airport"
+          },
+          "passengersCount": 1,
+          "leadPassengerName": "Jan Novák",
+          "leadPassengerPhone": "+420111111111",
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 0
+          },
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1
+          },
+          "customerNote": "I would like some non-sparkling water",
+          "flightNumber": "FR1234",
+          "cashPayment": true
         }
       ],
       "stops": []
@@ -190,7 +192,9 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 }
 ```
 
-This endpoint returns all trips assigned to your company (split into multiple pages in case of high trip counts). You can filter the trips by departure time.
+This endpoint returns all trips assigned to your company, split into pages when there are many. You can filter the trips by departure time. Trips are ordered by `departureAtUtc`, earliest first.
+
+The second trip in the example above carries two passenger groups — a shared ride. Note that its `type` is still `"private"`: that field does not distinguish shared rides. The number of entries in `passengerGroups` does.
 
 ### URL path
 
