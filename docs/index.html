@@ -113,7 +113,7 @@
             <p><strong>We will not</strong> rename or remove a field you receive today, change its type, or change what its value means. If that ever becomes necessary, it will happen on a new version path and you will hear from us first.</p>
             <p>Changes are recorded in the <a href="#changelog">Changelog</a> at the end of this page.</p>
             <h1 id="trip-api">Trip API</h1>
-            <p>A trip is a representation of passenger transportation from point A to point B. Each trip is one vehicle carrying out one booking.</p>
+            <p>A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple passenger groups in case of a shared ride.</p>
             <h2 id="trips-endpoint">Trips endpoint</h2>
             <blockquote>
                <p>To search for all trips assigned to your company departing from the start of today onwards, use the following call:</p>
@@ -207,7 +207,7 @@
     <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;64071bc2-b0f8-48f0-a797-1a438eb01caa&quot;</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;private&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;vehicleType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Van&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;vehicleType&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Shuttle&quot;</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;licensePlate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;123456&quot;</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;vehicleModel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Mercedes-Benz Vito Tourer&quot;</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">&quot;englishSpeakingDriver&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
@@ -234,7 +234,7 @@
             <span class="hljs-attr">&quot;longitude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14.4813395</span>
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;dropoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples Airport&quot;</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples city center (Napoli Centrale Train Station)&quot;</span>
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Sokol&quot;</span><span class="hljs-punctuation">,</span>
@@ -250,6 +250,41 @@
             <span class="hljs-attr">&quot;booster&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
           <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;I would like some sparkling water&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;a988a761-3d71-43cb-b290-9be150245a28&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;bookingReference&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A988A7&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;departureAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-07-05T18:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;departureAtUtc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-07-05T16:00:00.000Z&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;origin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Positano&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;country&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Italy&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;destination&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;country&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Italy&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;pickup&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Mandara Parking&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;dropoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Naples Airport&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;passengersCount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jan Novák&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;leadPassengerPhone&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;+420111111111&quot;</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;luggage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;carryOns&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;suitcases&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;requestedChildSeats&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;rearFacing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;forwardFacing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;boosterSeat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;booster&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;customerNote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;I would like some non-sparkling water&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;flightNumber&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;FR1234&quot;</span><span class="hljs-punctuation">,</span>
           <span class="hljs-attr">&quot;cashPayment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
         <span class="hljs-punctuation">}</span>
@@ -259,7 +294,6 @@
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span></code></pre>
             <p>This endpoint returns all trips assigned to your company, split into pages when there are many. You can filter the trips by departure time. Trips are ordered by <code>departureAtUtc</code>, earliest first.</p>
-            <p><code>passengerGroups</code> is a list, but it always holds exactly one entry: a trip is one vehicle on one booking. The list shape is left over from a shared-shuttle product that has been retired.</p>
             <h3 id="url-path">URL path</h3>
             <p><code>/driver-company/v1/trips</code></p>
             <h3 id="query-parameters">Query Parameters</h3>
@@ -302,9 +336,6 @@
             <p><strong><code>departureAt</code> is the local wall-clock time at the pickup location.</strong> It ends in <code>Z</code>, which normally means UTC, but this value is not UTC. A trip leaving Rome at 09:00 local time is sent as <code>2026-09-05T09:00:00.000Z</code>, even though 09:00 in Rome is 07:00 UTC. The field has behaved this way since the API launched and is kept unchanged so that existing integrations keep working. If all you need is the time to show a driver, read the clock face and ignore the <code>Z</code>.</p>
             <p><strong><code>departureAtUtc</code> is the real UTC departure time</strong> — <code>2026-09-05T07:00:00.000Z</code> for that same Rome trip. Use it for anything that involves time arithmetic: counting down to pickup, sorting, converting into another timezone, or comparing against <code>departureTimeFrom</code> and <code>departureTimeTo</code>.</p>
             <p>The offset between the two is the pickup location&#39;s UTC offset on that date, so it changes with daylight saving — one hour in Italian winter, two in summer.</p>
-            <h3 id="bookings-that-need-several-vehicles">Bookings that need several vehicles</h3>
-            <p>When a booking needs more than one vehicle — eleven people travelling in a van and a sedan, say — <strong>each vehicle is a separate trip</strong>, with its own trip <code>id</code>. Those trips carry the same passenger group: the same <code>id</code> and the same <code>bookingReference</code>. Group trips by <code>bookingReference</code> if you want to show the booking to a dispatcher as one job.</p>
-            <aside class="warning"> On such a trip, <code>passengersCount</code>, <code>luggage</code> and <code>requestedChildSeats</code> describe the <strong>whole booking</strong>, not the people travelling in this particular vehicle. For the eleven-passenger booking above, both trips report <code>passengersCount: 11</code>, even though one vehicle takes seven and the other four. We do not currently send the per-vehicle split. </aside>
             <h3 id="response-body">Response body</h3>
             <table>
                <thead>
@@ -421,7 +452,7 @@
                   <tr>
                      <td>passengerGroups</td>
                      <td>list of <a href="#passengergroup">PassengerGroup</a></td>
-                     <td>The booking this trip covers. Always exactly one entry, because a trip is one vehicle on one booking.</td>
+                     <td>List of passenger groups that this trip covers.</td>
                   </tr>
                   <tr>
                      <td>stops</td>
@@ -443,7 +474,7 @@
                   <tr>
                      <td>id</td>
                      <td>string</td>
-                     <td>Unique id of this group, which is also the Daytrip order id. Two trips of the same booking carry the same value — see <a href="#bookings-that-need-several-vehicles">Bookings that need several vehicles</a>.</td>
+                     <td>Unique id of this group.</td>
                   </tr>
                   <tr>
                      <td>bookingReference</td>
@@ -453,12 +484,12 @@
                   <tr>
                      <td>departureAt</td>
                      <td>string</td>
-                     <td>Local wall-clock departure time at the pickup location. The same value as the trip&#39;s <code>departureAt</code>. See <a href="#departure-times">Departure times</a>.</td>
+                     <td>Local wall-clock departure time at the pickup location, despite the <code>Z</code> suffix. See <a href="#departure-times">Departure times</a>.</td>
                   </tr>
                   <tr>
                      <td>departureAtUtc</td>
                      <td>string</td>
-                     <td>The genuine UTC departure time. The same value as the trip&#39;s <code>departureAtUtc</code>.</td>
+                     <td>The genuine UTC departure time. Use this one for time arithmetic. See <a href="#departure-times">Departure times</a>.</td>
                   </tr>
                   <tr>
                      <td>origin</td>
@@ -483,7 +514,7 @@
                   <tr>
                      <td>passengersCount</td>
                      <td>integer</td>
-                     <td>How many passengers are on the booking. Not the number travelling in this vehicle when the booking is split across several — see <a href="#bookings-that-need-several-vehicles">Bookings that need several vehicles</a>.</td>
+                     <td>Count of passengers in this group.</td>
                   </tr>
                   <tr>
                      <td>leadPassengerName</td>
@@ -498,12 +529,12 @@
                   <tr>
                      <td>luggage</td>
                      <td><a href="#luggage">Luggage</a></td>
-                     <td>Always present. Luggage counts per type, for the whole booking.</td>
+                     <td>Always present. Counts of luggage per type.</td>
                   </tr>
                   <tr>
                      <td>requestedChildSeats</td>
                      <td><a href="#childseats">ChildSeats</a></td>
-                     <td>Always present. How many child seats of each type the booking requested; every count is 0 when none were.</td>
+                     <td>Always present. Counts of requested child seats by type; every count is 0 when none were.</td>
                   </tr>
                   <tr>
                      <td>driverNote</td>
@@ -670,8 +701,6 @@
                <li>The trip count field is documented under the name the API actually returns, <code>tripsCount</code>. It was previously listed as <code>tripCount</code>.</li>
                <li>The <code>vehicleType</code> list now matches the values the API can send.</li>
                <li><code>type</code> is documented as always <code>&quot;private&quot;</code>.</li>
-               <li><code>passengerGroups</code> is documented as always holding exactly one entry. The old docs described trips shared between several bookings, which this API has not returned since the shared-shuttle product was retired.</li>
-               <li>New section on bookings that need several vehicles: they arrive as separate trips sharing one <code>bookingReference</code>, and the passenger, luggage and child seat counts on each describe the whole booking rather than that vehicle.</li>
                <li>The example responses are now valid JSON and a production example was added.</li>
                <li>The <a href="#compatibility">Compatibility</a> section above is new.</li>
             </ul>

@@ -1,6 +1,6 @@
 # Trip API
 
-A trip is a representation of passenger transportation from point A to point B. Each trip is one vehicle carrying out one booking.
+A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple passenger groups in case of a shared ride.
 
 ## Trips endpoint
 
@@ -104,7 +104,7 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
     {
       "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
       "type": "private",
-      "vehicleType": "Van",
+      "vehicleType": "Shuttle",
       "licensePlate": "123456",
       "vehicleModel": "Mercedes-Benz Vito Tourer",
       "englishSpeakingDriver": true,
@@ -131,7 +131,7 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
             "longitude": 14.4813395
           },
           "dropoff": {
-            "address": "Naples Airport"
+            "address": "Naples city center (Napoli Centrale Train Station)"
           },
           "passengersCount": 1,
           "leadPassengerName": "Jan Sokol",
@@ -147,6 +147,41 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
             "booster": 0
           },
           "customerNote": "I would like some sparkling water",
+          "cashPayment": true
+        },
+        {
+          "id": "a988a761-3d71-43cb-b290-9be150245a28",
+          "bookingReference": "A988A7",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
+          "origin": {
+            "name": "Positano",
+            "country": "Italy"
+          },
+          "destination": {
+            "name": "Naples",
+            "country": "Italy"
+          },
+          "pickup": {
+            "address": "Mandara Parking"
+          },
+          "dropoff": {
+            "address": "Naples Airport"
+          },
+          "passengersCount": 1,
+          "leadPassengerName": "Jan Novák",
+          "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1
+          },
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 0
+          },
+          "customerNote": "I would like some non-sparkling water",
           "flightNumber": "FR1234",
           "cashPayment": true
         }
@@ -158,8 +193,6 @@ curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=167932
 ```
 
 This endpoint returns all trips assigned to your company, split into pages when there are many. You can filter the trips by departure time. Trips are ordered by `departureAtUtc`, earliest first.
-
-`passengerGroups` is a list, but it always holds exactly one entry: a trip is one vehicle on one booking. The list shape is left over from a shared-shuttle product that has been retired.
 
 ### URL path
 
@@ -204,23 +237,6 @@ The offset between the two is the pickup location's UTC offset on that date,
 so it changes with daylight saving — one hour in Italian winter, two in
 summer.
 
-### Bookings that need several vehicles
-
-When a booking needs more than one vehicle — eleven people travelling in a van
-and a sedan, say — **each vehicle is a separate trip**, with its own trip `id`.
-Those trips carry the same passenger group: the same `id` and the same
-`bookingReference`. Group trips by `bookingReference` if you want to show the
-booking to a dispatcher as one job.
-
-<aside class="warning">
-On such a trip, <code>passengersCount</code>, <code>luggage</code> and
-<code>requestedChildSeats</code> describe the <strong>whole booking</strong>,
-not the people travelling in this particular vehicle. For the eleven-passenger
-booking above, both trips report <code>passengersCount: 11</code>, even though
-one vehicle takes seven and the other four. We do not currently send the
-per-vehicle split.
-</aside>
-
 ### Response body
 
 Property        | Type                              | Description
@@ -255,26 +271,26 @@ englishSpeakingDriver | boolean                                    | Always pres
 departureAt           | string                                     | Local wall-clock departure time at the pickup location, despite the `Z` suffix. See [Departure times](#departure-times).
 departureAtUtc        | string                                     | The genuine UTC departure time. Use this one for time arithmetic. See [Departure times](#departure-times).
 acceptationNote       | string                                     | Optional. Note left by the company when it accepted the trip. Returned as `null` when a vehicle is assigned but carries no note.
-passengerGroups       | list of [PassengerGroup](#passengergroup)  | The booking this trip covers. Always exactly one entry, because a trip is one vehicle on one booking.
+passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers.
 stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops. An empty list when there are none.
 
 ## PassengerGroup
 
 Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
-id                    | string                            | Unique id of this group, which is also the Daytrip order id. Two trips of the same booking carry the same value — see [Bookings that need several vehicles](#bookings-that-need-several-vehicles).
+id                    | string                            | Unique id of this group.
 bookingReference      | string                            | Booking reference of this group.
-departureAt           | string                            | Local wall-clock departure time at the pickup location. The same value as the trip's `departureAt`. See [Departure times](#departure-times).
-departureAtUtc        | string                            | The genuine UTC departure time. The same value as the trip's `departureAtUtc`.
+departureAt           | string                            | Local wall-clock departure time at the pickup location, despite the `Z` suffix. See [Departure times](#departure-times).
+departureAtUtc        | string                            | The genuine UTC departure time. Use this one for time arithmetic. See [Departure times](#departure-times).
 origin                | [Location](#location)             | The origin location.
 destination           | [Location](#location)             | The destination location.
 pickup                | [MapPoint](#mappoint)             | Where to collect the passengers.
 dropoff               | [MapPoint](#mappoint)             | Where to drop the passengers off.
-passengersCount       | integer                           | How many passengers are on the booking. Not the number travelling in this vehicle when the booking is split across several — see [Bookings that need several vehicles](#bookings-that-need-several-vehicles).
+passengersCount       | integer                           | Count of passengers in this group.
 leadPassengerName     | string                            | Name of the lead passenger.
 leadPassengerPhone    | string                            | Optional. Phone number of the lead passenger including country code, when we hold one.
-luggage               | [Luggage](#luggage)               | Always present. Luggage counts per type, for the whole booking.
-requestedChildSeats   | [ChildSeats](#childseats)         | Always present. How many child seats of each type the booking requested; every count is 0 when none were.
+luggage               | [Luggage](#luggage)               | Always present. Counts of luggage per type.
+requestedChildSeats   | [ChildSeats](#childseats)         | Always present. Counts of requested child seats by type; every count is 0 when none were.
 driverNote            | string                            | Optional. Note for the driver.
 customerNote          | string                            | Optional. Free text written by the customer. Use `flightNumber` for the flight number. A ship or train name, when the customer gives one at all, appears here or in `driverNote` as free text; we do not hold it as a separate field.
 flightNumber          | string                            | Optional. The flight number for this booking, when the customer supplied one. The key is absent when there is none.
