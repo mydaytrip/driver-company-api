@@ -111,7 +111,6 @@
             <p><strong>We may add new values</strong> to any field documented with a list of values, such as <code>vehicleType</code>. Handle a value you do not recognise gracefully rather than rejecting the whole response.</p>
             <p><strong>We may add new optional query parameters.</strong> Existing ones keep their meaning.</p>
             <p><strong>We will not</strong> rename or remove a field you receive today, change its type, or change what its value means. If that ever becomes necessary, it will happen on a new version path and you will hear from us first.</p>
-            <p>One thing that is not a promise: <code>pageSize</code> currently accepts any value, but large pages are slow for both of us and we may introduce a limit.</p>
             <p>Changes are recorded in the <a href="#changelog">Changelog</a> at the end of this page.</p>
             <h1 id="trip-api">Trip API</h1>
             <p>A trip is a representation of passenger transportation from point A to point B. One trip can cover multiple passenger groups in case of a shared ride.</p>
@@ -326,7 +325,7 @@
                   <tr>
                      <td>pageSize</td>
                      <td>integer</td>
-                     <td>How many trips per page. Defaults to 100. Larger pages are accepted today, but they are slow and we may introduce a limit — see <a href="#compatibility">Compatibility</a>.</td>
+                     <td>How many trips per page. Defaults to 100. Larger pages are accepted, but they are slow.</td>
                   </tr>
                </tbody>
             </table>

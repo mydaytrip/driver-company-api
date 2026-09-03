@@ -207,7 +207,7 @@ Parameter           | Type    | Description
 departureTimeFrom   | integer | Earliest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. Defaults to the start of the current UTC day.
 departureTimeTo     | integer | Latest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. When omitted, every trip departing after `departureTimeFrom` is returned.
 pageIndex           | integer | Which page to return, counting from 0. Defaults to 0.
-pageSize            | integer | How many trips per page. Defaults to 100. Larger pages are accepted today, but they are slow and we may introduce a limit — see [Compatibility](#compatibility).
+pageSize            | integer | How many trips per page. Defaults to 100. Larger pages are accepted, but they are slow.
 
 <aside class="warning">
 <code>departureTimeFrom</code> and <code>departureTimeTo</code> are matched

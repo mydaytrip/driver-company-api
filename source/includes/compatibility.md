@@ -19,7 +19,4 @@ rejecting the whole response.
 change what its value means. If that ever becomes necessary, it will happen on
 a new version path and you will hear from us first.
 
-One thing that is not a promise: `pageSize` currently accepts any value, but
-large pages are slow for both of us and we may introduce a limit.
-
 Changes are recorded in the [Changelog](#changelog) at the end of this page.
