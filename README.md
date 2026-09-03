@@ -1,3 +1,23 @@
+Daytrip driver company API documentation
+========================================
+
+Published at **https://mydaytrip.github.io/driver-company-api**.
+
+- **Edit `source/includes/*.md`.** Page order is set in `source/index.yml`.
+  That is the only place content lives.
+- **Never edit `docs/`.** GitHub Pages serves the `main` branch's `/docs`
+  folder, and it is generated output — the next build overwrites anything
+  typed into it by hand.
+- **To publish:** `npm install && npm run publish-docs`, then commit the
+  resulting `docs/` change. That builds the site and copies `build/3-rev`
+  into `docs/`.
+- **`deploy.sh` is dead.** It publishes to a `gh-pages` branch this repository
+  does not use. Ignore it.
+
+Everything below is the upstream node-slate README, kept for reference.
+
+---
+
 <p align=center>
    <img src=https://raw.githubusercontent.com/lord/img/master/logo-slate.png width=226 alt=logo>
 </p>
