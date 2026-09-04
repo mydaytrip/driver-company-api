@@ -165,9 +165,13 @@ const task = {
       return gulp.src('source/*.html');
       },
    publishToDocs() {
-      fs.mkdirSync('docs', { recursive: true });
-      fs.writeFileSync('docs/CNAME', 'node-slate.js.org\n');
-      return gulp.src('build/2-min/**/*')
+      // GitHub Pages serves the main branch's docs/ folder, so publishing means
+      // replacing docs/ with the revisioned build. build/2-min is not it: docs/
+      // holds content-hashed filenames, which only build/3-rev produces.
+      if (!fs.existsSync('build/3-rev/index.html'))
+         throw Error('build/3-rev is missing — run "npm run build" first.');
+      fs.rmSync('docs', { recursive: true, force: true });
+      return gulp.src('build/3-rev/**/*')
          .pipe(gulp.dest('docs'));
       },
    };

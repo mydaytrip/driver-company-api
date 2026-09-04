@@ -4,34 +4,18 @@ A trip is a representation of passenger transportation from point A to point B. 
 
 ## Trips endpoint
 
-> To search for all trips assigned to your company with departure time from the start of today, use the following call:
+> To search for all trips assigned to your company departing from the start of today onwards, use the following call:
+
+```bash
+curl "https://api.staging.mydaytrip.net/driver-company/v1/trips"
+  -H "x-api-key: your-api-key"
+```
+
+> To search for all trips with a departure time between two specified dates, use the following call:
 
 ```bash
 curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
   -H "x-api-key: your-api-key"
-```
-
-```javascript
-
-```
-
-```python
-
-```
-
-> To search for all trips assigned to your company with departure time between two specified dates, use the following call:
-
-```bash
-curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
-  -H "x-api-key: your-api-key"
-```
-
-```javascript
-
-```
-
-```python
-
 ```
 
 > To get the second page of results, use the following call:
@@ -41,12 +25,11 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
   -H "x-api-key: your-api-key"
 ```
 
-```javascript
+> The same call against production, which needs a separate API key:
 
-```
-
-```python
-
+```bash
+curl "https://api.mydaytrip.com/driver-company/v1/trips?departureTimeFrom=1679326157&departureTimeTo=1689326157"
+  -H "x-api-key: your-production-api-key"
 ```
 
 > The above calls return JSON structured like this:
@@ -55,53 +38,55 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 {
   "pageIndex": 0,
   "pageSize": 100,
-  "tripCount": 100,
-  "nextPage": true,
+  "tripsCount": 2,
+  "nextPage": false,
   "trips": [
     {
       "id": "9ed90a6a-f09f-4843-b6ae-6f98859eb877",
       "type": "private",
-      "vehicleType": "sedan",
-      "vehicleModel": "3 Series station wagon",
+      "vehicleType": "Sedan",
       "licensePlate": "654321",
+      "vehicleModel": "3 Series station wagon",
       "englishSpeakingDriver": true,
-      "departureAt": "2023-07-05T18:00:00Z",
-      "acceptationNote": "Fiat Tipo station vagon",
+      "departureAt": "2026-07-05T18:00:00.000Z",
+      "departureAtUtc": "2026-07-05T16:00:00.000Z",
+      "acceptationNote": "Fiat Tipo station wagon",
       "passengerGroups": [
         {
           "id": "11e4f50f-37cb-4f01-9d0d-9b76787a0dca",
           "bookingReference": "11E4F5",
-          "departureAt": "2023-07-05T18:00:00Z",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
           "origin": {
             "name": "Prague",
-            "country": "Czech Republic",
+            "country": "Czech Republic"
           },
           "destination": {
             "name": "Vienna",
-            "country": "Austria",
+            "country": "Austria"
           },
           "pickup": {
-            "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia",
+            "address": "Metropolitan Old Town hotel, Haštalská, Old Town, Czechia"
           },
           "dropoff": {
-            "address": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria",
+            "address": "Hotel Josefshof am Rathaus, Josefsgasse, Vienna, Austria"
           },
           "passengersCount": 3,
           "leadPassengerName": "Jan Novák",
           "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 2,
+            "suitcases": 3
+          },
           "requestedChildSeats": {
             "rearFacing": 0,
             "forwardFacing": 0,
             "boosterSeat": 0,
-            "booster": 1,
+            "booster": 1
           },
-          "luggage": {
-            "carryOns": 2,
-            "suitcases": 3,
-          },
+          "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button.",
           "customerNote": "We would like some non-sparkling water",
-          "driverNote": "For this trip, you must download the Daytrip Driver app and record the trip with the “Track a trip” button. For extra certainty, take a screenshot of your location on Google maps or GPS (and a selfie at the pick-up location?) at the scheduled pick-up time. If you do not, you might not get paid.",
-          "cashPayment": true,
+          "cashPayment": true
         }
       ],
       "stops": [
@@ -111,77 +96,94 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
           "address": {
             "address": "Via Porsenna, 93, 53043 Chiusi SI, Italy",
             "latitude": 43.0160062,
-            "longitude": 11.9493061,
+            "longitude": 11.9493061
           }
         }
       ]
     },
     {
       "id": "64071bc2-b0f8-48f0-a797-1a438eb01caa",
-      "type": "pool",
-      "vehicleType": "shuttle",
-      "vehicleModel": "Mercedes-Benz Vito Tourer",
+      "type": "private",
+      "vehicleType": "Shuttle",
       "licensePlate": "123456",
+      "vehicleModel": "Mercedes-Benz Vito Tourer",
       "englishSpeakingDriver": true,
-      "departureAt": "2023-07-05T18:00:00Z",      
+      "departureAt": "2026-07-05T18:00:00.000Z",
+      "departureAtUtc": "2026-07-05T16:00:00.000Z",
+      "acceptationNote": null,
       "passengerGroups": [
-        {
-          "id": "a988a761-3d71-43cb-b290-9be150245a28",
-          "bookingReference": "A988A7",
-          "departureAt": "2023-07-05T18:00:00Z",
-          "origin": {
-            "name": "Positano",
-            "country": "Italy",
-          },
-          "destination": {
-            "name": "Naples",
-            "country": "Italy",
-          },
-          "pickup": {
-            "address": "Mandara Parking",
-          },
-          "dropoff": {
-            "address": "Naples Airport: Naples Airport",
-          },
-          "passengersCount": 1,
-          "leadPassengerName": "Jan Novák",
-          "leadPassengerPhone": "+420111111111",
-          "luggage": {
-            "carryOns": 1,
-            "suitcases": 1,
-          },
-          "customerNote": "I would like some non-sparkling water",
-          "cashPayment": true,
-        },
         {
           "id": "3919ca49-7153-4c50-b395-56bc026d30be",
           "bookingReference": "3919CA",
-          "departureAt": "2023-07-05T18:30:00Z",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
           "origin": {
             "name": "Positano",
-            "country": "Italy",
+            "country": "Italy"
           },
           "destination": {
             "name": "Naples",
-            "country": "Italy",
+            "country": "Italy"
           },
           "pickup": {
             "address": "Villa Yiara, Viale Pasitea, Positano, SA, Italy",
             "latitude": 40.628749,
-            "longitude": 14.4813395,
+            "longitude": 14.4813395
           },
           "dropoff": {
-            "address": "Naples city center (Napoli Centrale Train Station): Naples city center (Napoli Centrale Train Station",
+            "address": "Naples city center (Napoli Centrale Train Station)"
           },
           "passengersCount": 1,
           "leadPassengerName": "Jan Sokol",
           "leadPassengerPhone": "+420333333333",
           "luggage": {
             "carryOns": 1,
-            "suitcases": 1,
+            "suitcases": 1
+          },
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 0
           },
           "customerNote": "I would like some sparkling water",
-          "cashPayment": true,
+          "cashPayment": true
+        },
+        {
+          "id": "a988a761-3d71-43cb-b290-9be150245a28",
+          "bookingReference": "A988A7",
+          "departureAt": "2026-07-05T18:00:00.000Z",
+          "departureAtUtc": "2026-07-05T16:00:00.000Z",
+          "origin": {
+            "name": "Positano",
+            "country": "Italy"
+          },
+          "destination": {
+            "name": "Naples",
+            "country": "Italy"
+          },
+          "pickup": {
+            "address": "Mandara Parking"
+          },
+          "dropoff": {
+            "address": "Naples Airport"
+          },
+          "passengersCount": 1,
+          "leadPassengerName": "Jan Novák",
+          "leadPassengerPhone": "+420111111111",
+          "luggage": {
+            "carryOns": 1,
+            "suitcases": 1
+          },
+          "requestedChildSeats": {
+            "rearFacing": 0,
+            "forwardFacing": 0,
+            "boosterSeat": 0,
+            "booster": 0
+          },
+          "customerNote": "I would like some non-sparkling water",
+          "flightNumber": "FR1234",
+          "cashPayment": true
         }
       ],
       "stops": []
@@ -190,7 +192,7 @@ curl "https://api.staging.mydaytrip.net/driver-company/v1/trips?departureTimeFro
 }
 ```
 
-This endpoint returns all trips assigned to your company (split into multiple pages in case of high trip counts). You can filter the trips by departure time.
+This endpoint returns all trips assigned to your company, split into pages when there are many. You can filter the trips by departure time. Trips are ordered by `departureAtUtc`, earliest first.
 
 ### URL path
 
@@ -200,20 +202,50 @@ This endpoint returns all trips assigned to your company (split into multiple pa
 
 Parameter           | Type    | Description
 ------------------- | ------- | -----------
-departureTimeFrom   | integer | Minimum departure time as a UNIX epoch timestamp in seconds. If not provided it will default to start of current day.
-departureTimeTo     | integer | Maximum departure time as a UNIX epoch timestamp in seconds. If not provided then no maximum filter will be applied and every future trip after `departureTimeFrom` will be returned.
-pageIndex           | integer | Page index to return. If not provided it will default to 0.
-pageSize            | integer | Size of each page. If not provided it will default to 100.
+departureTimeFrom   | integer | Earliest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. Defaults to the start of the current UTC day.
+departureTimeTo     | integer | Latest departure time to return, as a UNIX epoch timestamp in seconds. Matched against `departureAtUtc`. When omitted, every trip departing after `departureTimeFrom` is returned.
+pageIndex           | integer | Which page to return, counting from 0. Defaults to 0.
+pageSize            | integer | How many trips per page. Defaults to 100. Larger pages are accepted, but they are slow.
+
+<aside class="warning">
+<code>departureTimeFrom</code> and <code>departureTimeTo</code> are matched
+against <code>departureAtUtc</code>, which is genuine UTC. They are
+<strong>not</strong> matched against <code>departureAt</code>, which is local
+time at the pickup. The two fields do not use the same clock, so filtering by
+a timestamp you read off <code>departureAt</code> will be wrong by that
+location's UTC offset. See <a href="#departure-times">Departure times</a>.
+</aside>
+
+### Departure times
+
+Every trip and every passenger group carries two departure timestamps.
+
+**`departureAt` is the local wall-clock time at the pickup location.** It ends
+in `Z`, which normally means UTC, but this value is not UTC. A trip leaving
+Rome at 09:00 local time is sent as `2026-09-05T09:00:00.000Z`, even though
+09:00 in Rome is 07:00 UTC. The field has behaved this way since the API
+launched and is kept unchanged so that existing integrations keep working. If
+all you need is the time to show a driver, read the clock face and ignore the
+`Z`.
+
+**`departureAtUtc` is the real UTC departure time** — `2026-09-05T07:00:00.000Z`
+for that same Rome trip. Use it for anything that involves time arithmetic:
+counting down to pickup, sorting, converting into another timezone, or
+comparing against `departureTimeFrom` and `departureTimeTo`.
+
+The offset between the two is the pickup location's UTC offset on that date,
+so it changes with daylight saving — one hour in Italian winter, two in
+summer.
 
 ### Response body
 
 Property        | Type                              | Description
 --------------- | --------------------------------- | -----------
-pageIndex       | integer                           | Page index of this result section, starting from 0.
-pageSize        | integer                           | Size of each page.
-tripCount       | integer                           | Actual count of trips on this page, can be lower than `pageSize` for the last page.
-nextPage        | boolean                           | Specifies if there is a next page with results after this one.
-trips           | list of [Trip](#trip)             | List of trips on this page.
+pageIndex       | integer                           | Index of this page, counting from 0.
+pageSize        | integer                           | The page size used for this request.
+tripsCount      | integer                           | How many trips are on this page. Lower than `pageSize` on the last page.
+nextPage        | boolean                           | Whether another page of results follows this one.
+trips           | list of [Trip](#trip)             | The trips on this page, ordered by `departureAtUtc`, earliest first.
 
 ### Error status codes
 
@@ -231,15 +263,16 @@ Below is a documentation of all object entities returned by the Daytrip driver c
 Property              | Type                                       | Description
 --------------------- | ------------------------------------------ | -----------
 id                    | string                                     | Unique id of this trip.
-type                  | string                                     | Type of the trip. "private" or "pool" (shared).
-vehicleType           | string                                     | Type of vehicle for the trip. "sedan", "mpv", "van", "luxury" or "shuttle"
-licensePlate          | string                                     | Optional. License plate of the assigned vehicle, if assigned and it has a license plate information.
-vehicleModel          | string                                     | Optional.  Information about assigned vehicle model, if assigned and we have the info.
-englishSpeakingDriver | boolean                                    | Specifies if this trip requires an English-speaking driver.
-departureAt           | string                                     | UTC timestamp of the departure date with time. For a trip covering multiple passenger groups this will be the minimum from all passenger groups.
-acceptationNote       | string                                     | Optional. Acceptation note for this trip.
-passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers. Will be one passenger group for private trips and one or more for pool trips.
-stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops.
+type                  | string                                     | Always `"private"`.
+vehicleType           | string                                     | One of `"Sedan"`, `"Sedan Lite"`, `"MPV"`, `"MPV Lite"`, `"Van"`, `"Van Lite"`, `"Premium Van"`, `"Luxury Sedan"` or `"Shuttle"`, or `"Unknown"` when no vehicle is assigned yet. New values may be added — see [Compatibility](#compatibility).
+licensePlate          | string                                     | Optional. License plate of the assigned vehicle, when one is assigned and has a plate on record.
+vehicleModel          | string                                     | Optional. Model of the assigned vehicle, when one is assigned and we hold the information.
+englishSpeakingDriver | boolean                                    | Always present. `false` on `"Sedan Lite"` trips, `true` on every other type.
+departureAt           | string                                     | Local wall-clock departure time at the pickup location, despite the `Z` suffix. See [Departure times](#departure-times).
+departureAtUtc        | string                                     | The genuine UTC departure time. Use this one for time arithmetic. See [Departure times](#departure-times).
+acceptationNote       | string                                     | Optional. Note left by the company when it accepted the trip. Returned as `null` when a vehicle is assigned but carries no note.
+passengerGroups       | list of [PassengerGroup](#passengergroup)  | List of passenger groups that this trip covers.
+stops                 | list of [Stop](#stop)                      | Sightseeing or custom stops. An empty list when there are none.
 
 ## PassengerGroup
 
@@ -247,19 +280,21 @@ Property              | Type                              | Description
 --------------------- | --------------------------------- | -----------
 id                    | string                            | Unique id of this group.
 bookingReference      | string                            | Booking reference of this group.
-departureAt           | string                            | UTC timestamp of the departure date with time.
-origin                | [Location](#location)             | Information about the origin location.
-destination           | [Location](#location)             | Information about the destination location.
-pickup                | [MapPoint](#mappoint)             | The pickup address/coordinates.
-dropoff               | [MapPoint](#mappoint)             | The dropoff address/coordinates.
+departureAt           | string                            | Local wall-clock departure time at the pickup location, despite the `Z` suffix. See [Departure times](#departure-times).
+departureAtUtc        | string                            | The genuine UTC departure time. Use this one for time arithmetic. See [Departure times](#departure-times).
+origin                | [Location](#location)             | The origin location.
+destination           | [Location](#location)             | The destination location.
+pickup                | [MapPoint](#mappoint)             | Where to collect the passengers.
+dropoff               | [MapPoint](#mappoint)             | Where to drop the passengers off.
 passengersCount       | integer                           | Count of passengers in this group.
 leadPassengerName     | string                            | Name of the lead passenger.
-leadPassengerPhone    | string                            | Phone of the lead passenger, including country code.
-requestedChildSeats   | [ChildSeatsCounts](#childseats)   | Optional. Counts of requested child seats by type.
-luggage               | [Luggage](#luggage)               | Counts of luggage per type.
-customerNote          | string                            | Optional. Customer's note. Includes flight/train number.
+leadPassengerPhone    | string                            | Optional. Phone number of the lead passenger including country code, when we hold one.
+luggage               | [Luggage](#luggage)               | Always present. Counts of luggage per type.
+requestedChildSeats   | [ChildSeats](#childseats)         | Always present. Counts of requested child seats by type; every count is 0 when none were.
 driverNote            | string                            | Optional. Note for the driver.
-cashPayment           | boolean                           | Specifies if this passenger group is paying in cash.
+customerNote          | string                            | Optional. Free text written by the customer. Use `flightNumber` for the flight number. A ship or train name, when the customer gives one at all, appears here or in `driverNote` as free text; we do not hold it as a separate field.
+flightNumber          | string                            | Optional. The flight number for this booking, when the customer supplied one. The key is absent when there is none.
+cashPayment           | boolean                           | Whether this passenger group pays the driver in cash.
 
 ## Location
 

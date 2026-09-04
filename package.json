@@ -39,7 +39,8 @@
       "build-quiet": "run-scripts build",
       "start": "run-scripts build && gulp show-paths && gulp serve",
       "deploy": "deploy.sh",
-      "test": "jshint gulpfile.js"
+      "publish-docs": "run-scripts build && gulp publish",
+      "test": "jshint gulpfile.js && node scripts/check-json-examples.mjs"
    },
    "dependencies": {
       "browser-sync": "~2.27",
